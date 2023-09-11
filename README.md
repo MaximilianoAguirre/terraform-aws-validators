@@ -7,7 +7,7 @@ This is a collection of validators for terraform variables based on specific res
 | Service | Resource             | Type          |                                                                      |
 | ------- | -------------------- | ------------- | -------------------------------------------------------------------- |
 | Account | Account ID           | string length | [example](./account.tf#L7-L15)                                       |
-| Account | Account canonical ID | regex         | [example](./account.tf#L17-L25)                                      |
+| Account | Account canonical ID | regex         | [example](./account.tf#L17-L25) / [value](./#L24-#L26)               |
 | EC2     | Instance type        | regex         | [example](./ec2.tf#L7-L18) / [helper](./helpers/instance_types/)     |
 | EC2     | Instance ID          | regex         | [example](./ec2.tf#L20-L28)                                          |
 | EC2     | Snapshot ID          | regex         | [example](./ec2.tf#L30-L38)                                          |
@@ -19,7 +19,7 @@ This is a collection of validators for terraform variables based on specific res
 
 ### Account
 
-**Canonical id**
+Canonical id
 
 ```regex
 ^[a-f0-9]{64}$
