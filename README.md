@@ -10,17 +10,55 @@ This is a collection of validators for terraform variables based on specific res
 | Account | Account canonical ID | regex         | [example](./account.tf#L17-L25) / [value](#account-canonical-id)                               |
 | EC2     | Instance type        | regex         | [example](./ec2.tf#L7-L18) / [value](#ec2-instance-type) / [helper](./helpers/instance_types/) |
 | EC2     | Instance ID          | regex         | [example](./ec2.tf#L20-L28) / [value](#ec2-instance-id)                                        |
-| EC2     | Snapshot ID          | regex         | [example](./ec2.tf#L30-L38) [value](#ec2-snapshot-id)                                          |
-| EC2     | AMI ID               | regex         | [example](./ec2.tf#L40-L48) [value](#ec2-ami-id)                                               |
-| EC2     | EBS Volumen ID       | regex         | [example](./ec2.tf#L50-L58) [value](#ec2-ebs-volumen-id)                                       |
-| RDS     | DB instance type     | regex         | [example](./rds.tf#L4-L16) [value](#instance-type) / [helper](./helpers/db_instance_types//)   |
+| EC2     | Snapshot ID          | regex         | [example](./ec2.tf#L30-L38) / [value](#ec2-snapshot-id)                                        |
+| EC2     | AMI ID               | regex         | [example](./ec2.tf#L40-L48) / [value](#ec2-ami-id)                                             |
+| EC2     | EBS Volumen ID       | regex         | [example](./ec2.tf#L50-L58) / [value](#ec2-ebs-volume-id)                                      |
+| RDS     | DB instance type     | regex         | [example](./rds.tf#L4-L16) / [value](#instance-type) / [helper](./helpers/db_instance_types//) |
 
-## Regex values
+## Values
+
+### Account id
+
+String length: `12`
+
+_Example:_
+
+```terraform
+variable "account_id" {
+  type        = string
+  description = "Account id"
+
+  validation {
+    condition     = try(length(var.account_id) == 12, false)
+    error_message = "account_id not valid."
+  }
+}
+```
+
+_References:_
+
+- https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-identifiers.html
 
 ### Account Canonical id
 
+_Regex:_
+
 ```regex
 ^[a-f0-9]{64}$
+```
+
+_Example:_
+
+```terraform
+variable "account_canonical_id" {
+  type        = number
+  description = "Account id"
+
+  validation {
+    condition     = can(regex("^[a-f0-9]{64}$", var.account_canonical_id))
+    error_message = "account_canonical_id not valid."
+  }
+}
 ```
 
 ### EC2 Instance type
